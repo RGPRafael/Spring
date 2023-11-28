@@ -1,0 +1,34 @@
+
+{
+    "nome": "John Doe",
+    "descrição": "Sample description",
+    "estrelas": 5,
+    "provasfeitas": 0,
+    "temlicenca": 0,
+    "nem": "Reforco",
+    "pais": "Sample Country",
+    "continente": "Sample Continent",
+    "localizaçãoconhecida": 0
+}
+
+
+{
+    "nome": "Hisoka",
+    "descrição": "Fascinado por lutas",
+    "estrelas": 5,
+    "provasfeitas": 0,
+    "temlicenca": 0,
+    "nem": "reforço",
+    "localizaçãoconhecida": 0
+}
+
+
+
+
+
+
+
+
+
+
+
