@@ -4,6 +4,7 @@
  */
 package com.CRUD.CRUD.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class LocalizacaoAtual {
     
     private String pais;
     private String continente;
-    private Boolean localizaçãoconhecida ;
+    @Column(name = "localizaçãoconhecida")
+    private Boolean localizacaoconhecida ;
    
 
     public String getPais() {
@@ -38,12 +40,12 @@ public class LocalizacaoAtual {
         this.continente = continente;
     }
 
-    public Boolean getLocalizaçãoconhecida() {
-        return localizaçãoconhecida;
+    public Boolean getLocalizacaoconhecida() {
+        return localizacaoconhecida;
     }
 
-    public void setLocalizaçãoconhecida(Boolean localizaçãoconhecida) {
-        this.localizaçãoconhecida = localizaçãoconhecida;
+    public void setLocalizacaoconhecida(Boolean localizaçãoconhecida) {
+        this.localizacaoconhecida = localizaçãoconhecida;
     }
     
    

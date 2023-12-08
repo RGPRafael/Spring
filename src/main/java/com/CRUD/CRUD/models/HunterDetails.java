@@ -15,7 +15,7 @@ public class HunterDetails {
    
     private Long Id;
     private String nome;
-    private String descrição;
+    private String descricao;
     private LocalDate cadastro;
     private Integer estrelas;
     private Integer provasfeitas;
@@ -43,12 +43,12 @@ public class HunterDetails {
         this.nome = nome;
     }
 
-    public String getDescrição() {
-        return descrição;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public LocalDate getCadastro() {
@@ -106,11 +106,11 @@ public class HunterDetails {
         this.continente = continente;
     }
 
-    public Boolean getLocalizaçãoconhecida() {
+    public Boolean getLocalizacaoconhecida() {
         return localizaçãoconhecida;
     }
 
-    public void setLocalizaçãoconhecida(Boolean localizaçãoconhecida) {
+    public void setLocalizacaoconhecida(Boolean localizaçãoconhecida) {
         this.localizaçãoconhecida = localizaçãoconhecida;
     }
    

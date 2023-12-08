@@ -4,6 +4,7 @@
  */
 package com.CRUD.CRUD.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,7 +27,8 @@ public class Hunters {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private String nome;
-    private String descrição;
+    @Column(name = "descrição")
+    private String descricao;
     private LocalDateTime cadastro;
     private Integer estrelas;
     private Integer provasfeitas;
@@ -55,12 +57,12 @@ public class Hunters {
         this.nome = nome;
     }
 
-    public String getDescrição() {
-        return descrição;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public LocalDateTime getCadastro() {
@@ -115,10 +117,13 @@ public class Hunters {
     public void excluir(){
         this.ativo = false;
     }
+    public void ativar(){
+        this.ativo = true;
+    }
     public Hunters(String nome, String descrição, Integer estrelas, Integer provasfeitas,   Boolean temlicenca, Nen nem , 
             LocalizacaoAtual localizacaoAtual ) {
         this.nome = nome;
-        this.descrição= descrição;
+        this.descricao= descrição;
         this.cadastro= LocalDateTime.now();
         this.estrelas = estrelas;
         this.provasfeitas = provasfeitas;
@@ -133,7 +138,7 @@ public class Hunters {
     
     public Hunters(String nome, String descrição, Integer estrelas, Integer provasfeitas,   Boolean temlicenca, Nen nem ) {
         this.nome = nome;
-        this.descrição= descrição;
+        this.descricao= descrição;
         this.cadastro= LocalDateTime.now();
         this.estrelas = estrelas;
         this.provasfeitas = provasfeitas;
@@ -142,8 +147,4 @@ public class Hunters {
        
 
     }
-    
-    
-    
-    
 }

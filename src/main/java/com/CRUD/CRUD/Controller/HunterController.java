@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -61,10 +62,10 @@ public class HunterController {
         try {
             LocalizacaoAtual localizacaoatuao = new LocalizacaoAtual();
             localizacaoatuao.setContinente(hunterDetails.getContinente());
-            localizacaoatuao.setLocalizaçãoconhecida(hunterDetails.getLocalizaçãoconhecida());
+            localizacaoatuao.setLocalizacaoconhecida(hunterDetails.getLocalizacaoconhecida());
             localizacaoatuao.setPais(hunterDetails.getPais());
 
-            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescrição(), hunterDetails.getEstrelas(), 
+            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescricao(), hunterDetails.getEstrelas(), 
                     hunterDetails.getProvasfeitas(), hunterDetails.getTemlicenca() , hunterDetails.getNem(), localizacaoatuao);
             Hunters save = hunterRepository.save( hunters ); 
 
@@ -132,10 +133,10 @@ public class HunterController {
     public void atualizar(@RequestBody  HunterDetails hunterDetails ) {
             LocalizacaoAtual localizacaoatuao = new LocalizacaoAtual();
             localizacaoatuao.setContinente(hunterDetails.getContinente());
-            localizacaoatuao.setLocalizaçãoconhecida(hunterDetails.getLocalizaçãoconhecida());
+            localizacaoatuao.setLocalizacaoconhecida(hunterDetails.getLocalizacaoconhecida());
             localizacaoatuao.setPais(hunterDetails.getPais());
 
-            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescrição(), hunterDetails.getEstrelas(), 
+            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescricao(), hunterDetails.getEstrelas(), 
                     hunterDetails.getProvasfeitas(), hunterDetails.getTemlicenca() , hunterDetails.getNem(), localizacaoatuao);
            
             hunterRepository.getReferenceById(hunters.getId());
@@ -165,10 +166,10 @@ public class HunterController {
     public ResponseEntity Atualizar(@RequestBody  HunterDetails hunterDetails ) {
             LocalizacaoAtual localizacaoatuao = new LocalizacaoAtual();
             localizacaoatuao.setContinente(hunterDetails.getContinente());
-            localizacaoatuao.setLocalizaçãoconhecida(hunterDetails.getLocalizaçãoconhecida());
+            localizacaoatuao.setLocalizacaoconhecida(hunterDetails.getLocalizacaoconhecida());
             localizacaoatuao.setPais(hunterDetails.getPais());
 
-            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescrição(), hunterDetails.getEstrelas(), 
+            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescricao(), hunterDetails.getEstrelas(), 
                     hunterDetails.getProvasfeitas(), hunterDetails.getTemlicenca() , hunterDetails.getNem(), localizacaoatuao);
            
             Hunters referenceById = hunterRepository.getReferenceById(hunters.getId());
@@ -182,10 +183,10 @@ public class HunterController {
         try {
             LocalizacaoAtual localizacaoatuao = new LocalizacaoAtual();
             localizacaoatuao.setContinente(hunterDetails.getContinente());
-            localizacaoatuao.setLocalizaçãoconhecida(hunterDetails.getLocalizaçãoconhecida());
+            localizacaoatuao.setLocalizacaoconhecida(hunterDetails.getLocalizacaoconhecida());
             localizacaoatuao.setPais(hunterDetails.getPais());
-
-            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescrição(), hunterDetails.getEstrelas(), 
+            
+            Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescricao(), hunterDetails.getEstrelas(), 
                     hunterDetails.getProvasfeitas(), hunterDetails.getTemlicenca() , hunterDetails.getNem(), localizacaoatuao);
             Hunters save = hunterRepository.save( hunters ); 
 
@@ -198,12 +199,35 @@ public class HunterController {
        
     }
     
-    @GetMapping("")
-    public  ResponseEntity<Page<Hunters>> ListarAtivos(Pageable pagina) {
-         Page<Hunters> findAllByAtivoTrue = hunterRepository.findAllByAtivoTrue(pagina);
-         
-        return ResponseEntity.ok(findAllByAtivoTrue);
-        
+//    @GetMapping("")
+//    public  ResponseEntity<Page<Hunters>> ListarAtivos(Pageable pagina) {
+//         Page<Hunters> findAllByAtivoTrue = hunterRepository.findAllByAtivoTrue(pagina);
+//         
+//        return ResponseEntity.ok(findAllByAtivoTrue);
+//        
+//    }
+    
+    
+//    @GetMapping
+//    public ResponseEntity<Page<Hunters>> buscartodos(Pageable pagina, @RequestParam Boolean escolha) {
+//        Boolean choice_boolean = Boolean.valueOf(escolha);
+//        if(choice_boolean){
+//            Page<Hunters> findAllByAtivoTrue = hunterRepository.findAllByAtivoTrue(pagina);
+//            return ResponseEntity.ok(findAllByAtivoTrue);
+//        }
+//        Page<Hunters> findAll = hunterRepository.findAll(pagina);
+//        return  ResponseEntity.ok(findAll ) ;
+//    }
+    
+    
+    @GetMapping
+    public List<Hunters> buscartodos(Pageable pagina, @RequestParam String escolha) {
+        if(escolha.equals("Sim")){
+            List<Hunters> findAllByAtivoTrue = hunterRepository.findAllByAtivoTrue(pagina).toList();
+            return findAllByAtivoTrue;
+        }
+        List<Hunters> findAll = hunterRepository.findAll(pagina).toList();
+        return  findAll ;
     }
     
     @GetMapping("/{id}")
@@ -211,6 +235,17 @@ public class HunterController {
         Hunters hunter = hunterRepository.getById(id);
         
         return hunter;
+    }
+    @PutMapping("/ativar/{id}")
+    @Transactional
+    public  ResponseEntity ativarHunter(@PathVariable Long id){
+        
+        Hunters hunter = hunterRepository.getById(id);
+        hunter.ativar();
+        Hunters referenceById = hunterRepository.getReferenceById(hunter.getId());
+        return ResponseEntity.ok(referenceById);
+         
+        
     }
     
     
