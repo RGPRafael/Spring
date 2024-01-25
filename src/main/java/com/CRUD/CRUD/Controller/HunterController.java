@@ -127,6 +127,20 @@ public class HunterController {
 
     }
     
+    @DeleteMapping("/deleteallSelect")
+     @Transactional
+    public ResponseEntity<Boolean> deleteRecords(@RequestParam List<Long> ids) {
+    // Implement logic to delete records from the database
+        try {
+            hunterRepository.deleteByIdIn(ids);
+            return ResponseEntity.ok(true);
+        }
+        catch (Exception e) {
+             e.printStackTrace(); // Log the exception or handle it as needed
+            return ResponseEntity.ok(false);
+        }
+  }
+    
     
     @PutMapping("/atualizar/{id}")
     @Transactional
@@ -139,7 +153,8 @@ public class HunterController {
             Hunters hunters = new Hunters(hunterDetails.getNome(), hunterDetails.getDescricao(), hunterDetails.getEstrelas(), 
                     hunterDetails.getProvasfeitas(), hunterDetails.getTemlicenca() , hunterDetails.getNem(), localizacaoatuao);
            
-            hunterRepository.getReferenceById(hunters.getId());
+            //hunterRepository.getReferenceById(hunters.getId());
+            hunterRepository.save(hunters);
     }
     
     
@@ -236,6 +251,8 @@ public class HunterController {
         
         return hunter;
     }
+    
+    
     @PutMapping("/ativar/{id}")
     @Transactional
     public  ResponseEntity ativarHunter(@PathVariable Long id){
@@ -246,8 +263,7 @@ public class HunterController {
         return ResponseEntity.ok(referenceById);
          
         
-    }
-    
+    }   
     
     
 }

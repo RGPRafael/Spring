@@ -23,6 +23,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface HunterRepository extends JpaRepository<Hunters, Long> {
     
     Page<Hunters> findAllByAtivoTrue(Pageable paginacao);
+    
+    void deleteByIdIn(List<Long> ids); 
         
     
 
